@@ -1,0 +1,19 @@
+name: FCC DA P1 Test
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install numpy pytest
+      - name: run solution sanity
+        run: |
+          python -c "
+          from mean_var_std import calculate
+          print(calculate([0,1,2,3,4,5,6,7,8]))
+          "
+      - name: run fcc tests
+        run: pytest test_module.py -v
